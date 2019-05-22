@@ -1,13 +1,11 @@
 <?php
-
-
 class Movie
 {
   public function addMovie($movieDirector,$movieTitle,$movieGenre,$movieActors,$movieYear,$moviePlot,$movieLength,$movieImg,$movieTrailer){
     global $db;
     $sqlMovie = "INSERT INTO movies (DirectorID,MovieTitle,MovieYear,MoviePlot,MovieLength,MovieImg,MovieTrailer) VALUES('$movieDirector','$movieTitle','$movieYear','$moviePlot','$movieLength','$movieImg','$movieTrailer')";
     $result = $db->query($sqlMovie);
-    if ($result) {
+    if ($result){
       $lastMovieID = $db->insert_id;
 if (!empty($movieActors) || !empty($movieGenre) ) {
       $actorsSeparated = implode(",", $movieActors);
@@ -111,8 +109,16 @@ if (!empty($movieActors) || !empty($movieGenre) ) {
   }
   public function updateMovie($id,$movieDirector,$movieTitle,$movieGenre,$movieActors,$movieYear,$moviePlot,$movieLength,$movieImg,$movieTrailer){
     global $db;
+    $getID = "SELECT * FROM movies
+        WHERE MovieID = $id";
+    $result = $db->query($getID);
+    $row = $result->fetch_array();
+    $getImg = $row['MovieImg'];
+    if ($result) {
+    unlink('img/'.$getImg);
     $sql ="UPDATE movies SET DirectorID = '$movieDirector', MovieTitle = '$movieTitle', MovieYear = '$movieYear', MoviePlot = '$moviePlot', MovieLength = '$movieLength', MovieImg = '$movieImg', MovieTrailer = '$movieTrailer' WHERE MovieID = $id";
     $result = $db->query($sql);
+
     if ($result) {
       $sqlActorsDel ="DELETE FROM moviesactors WHERE MovieID = $id";
       $sqlGenreDel ="DELETE FROM moviesgenre WHERE MovieID = $id ";
@@ -134,6 +140,7 @@ if (!empty($movieActors) || !empty($movieGenre) ) {
       }
       return $result;
     }
+        }
   }
   public function deleteMovie($id){
     global $db;

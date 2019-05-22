@@ -12,9 +12,11 @@
               $directorBirthday = $_POST['dBirthday'];
               $addDirector = Movie::addDirector($directorFirstName,$directorLastName,$directorBirthday);
               if ($addDirector) {
-                echo 'Director was added successfully';
+                echo '<div class="notification is-success">Director was added successfully</div>';
+                exit;
               }else {
-                echo 'somthing went wrong';
+                echo '<div class="notification is-danger">somthing went wrong</div>';
+                exit;
               }
 
             }else {

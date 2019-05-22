@@ -12,9 +12,11 @@
               $actorBirthday = $_POST['aBirthday'];
               $addactor = Movie::addactor($actorFirstName,$actorLastName,$actorBirthday);
               if ($addactor) {
-                echo 'actor was added successfully';
+                echo '<div class="notification is-success">actor was added successfully</div>';
+                exit;
               }else {
-                echo 'somthing went wrong';
+                echo '<div class="notification is-danger">somthing went wrong</div>';
+                exit;
               }
 
             }else {
