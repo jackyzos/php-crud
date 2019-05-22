@@ -1,6 +1,6 @@
 # School project
 
-> a MovieDB admin page based on PHP and MYSQLI (CRUD)
+> a MovieDB admin page based on PHP with MYSQLI + OPP (CRUD)
 
 ## Setup Setting
 
